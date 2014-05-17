@@ -63,11 +63,17 @@
 		-webkit-box-shadow: 0 0 8px #D0D0D0;
 	}
 	</style>
+        <script type="text/javascript">
+        $(function(){
+            console.log("welcome");
+        });
+        </script>
 </head>
 <body>
-
+    <?php include 'menu.php'; ?>
 <div id="container">
-	<h1>Welcome to CodeIgniter!</h1>
+  
+	<h1>歡迎來到我的 MVC 網站</h1>
 
 	<div id="body">
 		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
@@ -78,7 +84,7 @@
 		<p>The corresponding controller for this page is found at:</p>
 		<code>application/controllers/welcome.php</code>
 
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
+		
 	</div>
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>

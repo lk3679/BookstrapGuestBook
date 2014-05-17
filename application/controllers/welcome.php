@@ -26,21 +26,25 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+                $data["Site_Num"]=1;
+		$this->load->view('welcome_message',$data);
 	}
         
-        public function test(){
+        public function guestbook(){
             
-            echo $this->session->userdata('Name')." 歡迎光臨，你好啊!";
+            //echo $this->session->userdata('Name')." 歡迎光臨，你好啊!";
             //var_dump($this->session->all_userdata());
+            $data["Site_Num"]=2;
+            $this->load->view('guestbook',$data);
         }
         
         public function  login($userName=''){
-            //$this->load->library('Book');
+            $this->load->library('Book');
             $bk=new Book();
             $bk->buyBook(8);
             $data["num"]=$bk->buyNum;
             $data["name"]=$userName;
+            $data["Site_Num"]=3;
             $this->load->view('login',$data);
             $this->session->set_userdata('Name',$userName);
             //var_dump($this->session->all_userdata());
