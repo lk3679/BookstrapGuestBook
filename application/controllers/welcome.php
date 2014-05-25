@@ -9,7 +9,7 @@ class Welcome extends CI_Controller {
         //使用建構子時，要先繼承父類別的建構function
         parent::__construct();
         header("Content-type:text/html;charset=utf-8");
-        $this->load->library('session');       
+        $this->load->library('session');
         $this->load->helper('url');
     }
 
@@ -37,13 +37,29 @@ class Welcome extends CI_Controller {
 
         //echo $this->session->userdata('Name')." 歡迎光臨，你好啊!";
         //var_dump($this->session->all_userdata());
-        $this->load->Model('guestbook');
-        $GB=new guestbook();
-        $query=$GB->GetGuestBook();
-        //Base::Test($query);
         $data["Site_Num"] = 2;
-        $data["guestbookList"]=$query;
         $this->load->view('guestbook', $data);
+    }
+
+    public function guestbookJSON() {
+        $this->load->Model('guestbook');
+        $GB = new guestbook();
+        $query = $GB->GetGuestBook();
+        echo json_encode($query);
+    }
+
+    public function InsertGuestBook() {
+        $user = $_POST["user"];
+        $content = $_POST["content"];
+        $this->load->Model('guestbook');
+        $GB = new guestbook();
+        $data = array(
+            "user" => $user,
+            "content" => $content,
+            "createdate" => date("Y-m-d H:i:s")
+        );
+        //param1放table名稱，後面放新增欄位之陣列
+        $GB->AddNew('guestbook',$data);
     }
 
     public function login($userName = '') {

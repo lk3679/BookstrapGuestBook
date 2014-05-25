@@ -2,14 +2,15 @@
 
 class guestbook extends CI_Model{
 
-    function __construct() {
-    
-        
-    }
-
     function GetGuestBook() {
         $query = $this->db->query("SELECT * FROM guestbook")->result();
         return $query;
+    }
+    
+    function AddNew($TableNmae,$data){
+//        $str = $this->db->insert_string('test',$data);
+//        Base::Test($str);
+        $this->db->insert($TableNmae,$data);
     }
 
 }
