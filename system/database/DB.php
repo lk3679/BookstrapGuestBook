@@ -136,8 +136,9 @@ function &DB($params = '', $active_record_override = NULL)
 			eval('class CI_DB extends CI_DB_driver { }');
 		}
 	}
-
-	require_once(BASEPATH.'database/drivers/'.$params['dbdriver'].'/'.$params['dbdriver'].'_driver.php');
+        if(strrpos(BASEPATH,'home')==false){
+	    require_once(BASEPATH.'database/drivers/'.$params['dbdriver'].'/'.$params['dbdriver'].'_driver.php');
+        }
 
 	// Instantiate the DB adapter
 	$driver = 'CI_DB_'.$params['dbdriver'].'_driver';

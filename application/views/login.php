@@ -17,22 +17,27 @@
         <div id="body">	
 
             <p><?php echo $name; ?>你好 ,你共買了<? echo $num;  ?>本書</p>	
-          <a href="#" id="modal_link" class="btn btn-primary btn-small">
-                       
-                        確認
-                    </a>
+            <a href="#" id="modal_link" class="btn btn-primary btn-small">
+
+                確認
+            </a>
         </div>	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
     </div>
 
-     <div id="dialog-message" title="通知">
-                    <p>
-                        <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;">
-                             購買成功！！
-                        </span>
-                       
-                    </p>
+    <div id="dialog-message" title="通知" style="display:none">
+        <p>
+            <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+            購買成功！！
+        </p>
 
-                </div>
+    </div>
+    <?php
+    if (!defined('PDO::ATTR_DRIVER_NAME')) {
+        echo 'PDO unavailable';
+    } else {
+        echo 'PDO available';
+    }
+    ?>
     <?php include 'footer.php'; ?>
 </body>
 </html>

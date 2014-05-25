@@ -46,15 +46,16 @@
 */
 
 $active_group = 'default';
+//$active_group = 'test';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = '';
-$db['default']['password'] = '';
-$db['default']['database'] = '';
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['hostname'] = 'mysql:localhost;dbname=test';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '0000';
+$db['default']['database'] = 'test';
+$db['default']['dbdriver'] = 'PDO';
 $db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = TRUE;
+$db['default']['pconnect'] = FALSE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
@@ -64,6 +65,20 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-
+$db['test']['hostname'] = 'mysql:mysql1.000webhost.com;;dbname=a1071350_test';
+$db['test']['username'] = 'a1071350_robert';
+$db['test']['password'] = '2ujijjgl';
+$db['test']['database'] = 'a1071350_test';
+$db['test']['dbdriver'] = 'PDO';
+$db['test']['dbprefix'] = '';
+$db['test']['pconnect'] = TRUE;
+$db['test']['db_debug'] = TRUE;
+$db['test']['cache_on'] = FALSE;
+$db['test']['cachedir'] = '';
+$db['test']['char_set'] = 'utf8';
+$db['test']['dbcollat'] = 'utf8_general_ci';
+$db['test']['swap_pre'] = '';
+$db['test']['autoinit'] = TRUE;
+$db['test']['stricton'] = FALSE;
 /* End of file database.php */
 /* Location: ./application/config/database.php */

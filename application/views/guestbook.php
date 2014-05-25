@@ -8,6 +8,15 @@
         ::webkit-selection{ background-color: #E13300; color: white; }	
         body {		background-color: #fff;		margin: 0px;		font: 13px/20px normal Helvetica, Arial, sans-serif;		color: #4F5155;	}	a {		color: #003399;		background-color: transparent;		font-weight: normal;	}	h1 {		color: #444;		background-color: transparent;		border-bottom: 1px solid #D0D0D0;		font-size: 19px;		font-weight: normal;		margin: 0 0 14px 0;		padding: 14px 15px 10px 15px;	}	code {		font-family: Consolas, Monaco, Courier New, Courier, monospace;		font-size: 12px;		background-color: #f9f9f9;		border: 1px solid #D0D0D0;		color: #002166;		display: block;		margin: 14px 0 14px 0;		padding: 12px 10px 12px 10px;	}	#body{		margin: 0 15px 0 15px;	}		p.footer{		text-align: right;		font-size: 11px;		border-top: 1px solid #D0D0D0;		line-height: 32px;		padding: 0 10px 0 10px;		margin: 20px 0 0 0;	}		#container{		margin: 10px;		border: 1px solid #D0D0D0;		-webkit-box-shadow: 0 0 8px #D0D0D0;	}	
     </style>
+    <script type="text/javascript">
+        function a(){
+            alert("hi");
+        }
+        
+//        setInterval(function(){
+//            a();
+//        } ,1000);
+    </script>
 </head>
 <body>
     <?php include 'menu.php'; ?>
@@ -33,15 +42,26 @@
         </label></td>
       </tr>
     </table>
+    <?php foreach($guestbookList as $row){?> 
+    <table width="1200" border="1" class="table table-bordered table-condensed">  
+    <tr>  
+      <td id="color"><strong>  
+        <?=$row->title;?> 
+          </strong></td><td style="text-align:right;color: #942a25">時間：<?=$row->createdate;?></td>
+    </tr>  
+    <tr>  
+        <td colspan="2" style="height: 50px"><p style="font-family:Microsoft JhengHei"><big><?=$row->content;?></big></p></td>  
+    </tr>  
+  </table>  
+    <?php } ?>
+    
         <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
     </div>
 
-     <div id="dialog-message" title="通知">
-                    <p>
-                        <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;">
-                            留言成功！！
-                        </span>
-                        
+    <div id="dialog-message" title="通知" style="display:none">
+         <p>
+                        <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+                        留言成功！！
                     </p>
 
                 </div>
