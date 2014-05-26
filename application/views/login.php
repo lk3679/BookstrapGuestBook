@@ -31,13 +31,5 @@
         </p>
 
     </div>
-    <?php
-    if (!defined('PDO::ATTR_DRIVER_NAME')) {
-        echo 'PDO unavailable';
-    } else {
-        echo 'PDO available';
-    }
-    ?>
-    <?php include 'footer.php'; ?>
 </body>
 </html>

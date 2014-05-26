@@ -2,7 +2,7 @@
 <?php header("content-type:text/html;charset=utf-8"); ?>
 <head>
 	<?php include 'header.php'; ?>
-	<title>Welcome to CodeIgniter</title>
+	<title>歡迎來到我的 MVC 網站</title>
         <!--<link rel="icon" type="image/png" href="/chat/images/icon.png">-->
 	<style type="text/css">
 
@@ -76,13 +76,15 @@
 	<h1>歡迎來到我的 MVC 網站</h1>
 
 	<div id="body">
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
+		<p>此網站使用CodeIgniter架構，並使用JQuery UI Bootstrap套件設計前端</p>
 
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
+		<p>如果你對CodeIgniter有興趣的話，請參考：</p>
+                <code><a href="http://www.codeigniter.org.tw/user_guide/index.html">CI中文使用手冊</a></code>
 
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/welcome.php</code>
+		<p>如果你對JQuery UI Bootstrap有興趣的話，請參考：</p>
+		<code><a href="http://www.bootcss.com/p/jquery-ui-bootstrap/">JQuery UI Bootstrap中文使用手冊</a></code>
+                
+                <p>如果你對於網站開發有任何疑問的話，歡迎到<a href="<?php echo "http://" . $_SERVER['HTTP_HOST'];  ?>/chat/welcome/guestbook">留言板</a>留言給我</p>
 
 		
 	</div>
