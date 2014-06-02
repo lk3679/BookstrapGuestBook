@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>	
-    <title>註冊頁面</title>	
+    <title>留言板</title>	
     <?php include 'header.php'; ?>
     <style type="text/css">	
         ::selection{ background-color: #E13300; color: white; }	
@@ -15,8 +15,9 @@
         h1 {		color: #444;		background-color: transparent;		border-bottom: 1px solid #D0D0D0;		font-size: 19px;		font-weight: normal;		margin: 0 0 14px 0;		padding: 14px 15px 10px 15px;	}	code {		font-family: Consolas, Monaco, Courier New, Courier, monospace;		font-size: 12px;		background-color: #f9f9f9;		border: 1px solid #D0D0D0;		color: #002166;		display: block;		margin: 14px 0 14px 0;		padding: 12px 10px 12px 10px;	}	#body{		margin: 0 15px 0 15px;	}		p.footer{		text-align: right;		font-size: 11px;		border-top: 1px solid #D0D0D0;		line-height: 32px;		padding: 0 10px 0 10px;		margin: 20px 0 0 0;	}		#container{		margin: 10px;		border: 1px solid #D0D0D0;		-webkit-box-shadow: 0 0 8px #D0D0D0;	}	
     </style>
     <script type="text/javascript">
+       
         $().ready(function() {
-            getData();
+            $("#bookContent").slideToggle(1000);
 
             $("#dialog-message").dialog({
                 autoOpen: false,
@@ -46,17 +47,16 @@
 
         function setBook(data) {
             //陣列反轉，新的在前
-            data.reverse();
+            //data.reverse();
             var div = '';
-            $.each(data, function(k, v) {
-                div += '<table width="1200" border="1" class="table table-bordered table-condensed">';
-                div += '<tr><td id="color"><strong>' + v.user;
-                div += '</strong></td><td style="text-align:right;color: #942a25">時間：' + v.createdate + '</td></tr>';
-                div += '<tr><td colspan="2" style="height: 50px"><p style="font-family:Microsoft JhengHei"><big>' + v.content + '</big></p></td></tr> ';
+                div += '<table width="100%" border="1" class="table table-bordered table-condensed">';
+                div += '<tr><td id="color"><strong>' + data[0].user;
+                div += '</strong></td><td style="text-align:right;color: #942a25">時間：' + data[0].createdate + '</td></tr>';
+                div += '<tr><td colspan="2" style="height: 50px"><p style="font-family:Microsoft JhengHei"><big>' + data[0].content + '</big></p></td></tr> ';
                 div += '</table>';
-            });
-
-            $("#bookContent").append(div);
+            var old=$("#bookContent").html();
+            $("#bookContent").html(div+old);
+         
         }
 
         // Modal Link
@@ -69,7 +69,7 @@
                         .done(function() {
                             $("#msg").html("留言成功");
                             $('#dialog-message').dialog('open');
-                            $("#bookContent").html('');
+                            //$("#bookContent").html('');
                             getData();
                         })
                         .fail(function() {
@@ -97,33 +97,45 @@
 </head>
 <body>
     <?php include 'menu.php'; ?>
-    <div id="container">
-        <p align="center"><h2 align="center"><strong>留言板</strong></h2></p>
+</div>
+<div id="container" style="margin: 10%;margin-top: 5%">
 
-    <table width="1200" border="1"  class="table table-bordered table-condensed">
-        <tr>
-            <td id="color"><div id="heig"><strong>留言人:</strong>
-                    <input type="text" name="user" id="user" />
+    <p align="center"><h2 align="center"><strong>留言板</strong></h2></p>
 
+<table width="100%" border="1"  class="table table-bordered table-condensed">
+    <tr>
+        <td id="color"><div id="heig"><strong>留言人:</strong>
+                <input type="text" name="user" id="user" />
+
+            </div>
+        </td>
+        <td id="color"><div align="center">
+                <input type="button"  class="btn"  value="留言" onclick="submit();">
+            </div></td>
+    </tr>
+    <tr>
+        <td colspan="2"><label>
+                <div align="center">
+                    <textarea name="content" id="content" rows="8" class="span10" style="width:90%"></textarea>
                 </div>
-            </td>
-            <td id="color"><div align="center">
-                    <input type="button"  class="btn"  value="留言" onclick="submit();">
-                </div></td>
-        </tr>
-        <tr>
-            <td colspan="2"><label>
-                    <div align="center">
-                        <textarea name="content" id="content" rows="8" class="span10" style="width:90%"></textarea>
-                    </div>
-                </label></td>
-        </tr>
-    </table>
-    <div id="bookContent">
-
+            </label></td>
+    </tr>
+</table>
+<div id="bookContent" style="display:none">
+    <?php
+    foreach ($guestbook as $row) {
+        ?>
+        <table width="100%" border="1" class="table table-bordered table-condensed">
+            <tr><td id="color"><strong><?php echo $row->user; ?></strong></td>
+                <td style="text-align:right;color: #942a25">時間：<?php echo $row->createdate; ?></td></tr>
+            <tr><td colspan="2" style="height: 50px"><p style="font-family:Microsoft JhengHei"><big><?php echo $row->content; ?></big></p>
+        </td></tr>
+        </table>
+    
+<?php } ?>
+    
     </div>
-
-    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
+<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
 </div>
 
 <div id="dialog-message" title="通知" style="display:none">

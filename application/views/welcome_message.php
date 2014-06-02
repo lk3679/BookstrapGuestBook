@@ -71,7 +71,7 @@
 </head>
 <body>
     <?php include 'menu.php'; ?>
-<div id="container">
+<div id="container" style="margin: 10%;margin-top: 5%">
   
 	<h1>歡迎來到我的 MVC 網站</h1>
 
@@ -91,6 +91,5 @@
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
 </div>
-<?php include 'footer.php'; ?>
 </body>
 </html>

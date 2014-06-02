@@ -136,8 +136,10 @@ function &DB($params = '', $active_record_override = NULL)
 			eval('class CI_DB extends CI_DB_driver { }');
 		}
 	}
-        if(strrpos(BASEPATH,'home')==false){
+        if(strrpos(BASEPATH,'home')==false){          
 	    require_once(BASEPATH.'database/drivers/'.$params['dbdriver'].'/'.$params['dbdriver'].'_driver.php');
+        }else{
+            require_once('/home/a1071350/public_html/chat/system/database/drivers/pdo/pdo_driver.php');
         }
 
 	// Instantiate the DB adapter

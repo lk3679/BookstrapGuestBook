@@ -47,9 +47,9 @@
 
 $active_group = 'default';
 //$active_group = 'test';
-$active_record = TRUE;
+//$active_record = TRUE;
 
-$db['default']['hostname'] = 'mysql:localhost;dbname=test';
+$db['default']['hostname'] = 'mysql:host=localhost;dbname=test';
 $db['default']['username'] = 'root';
 $db['default']['password'] = '0000';
 $db['default']['database'] = 'test';
@@ -65,9 +65,9 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-$db['test']['hostname'] = 'mysql:mysql1.000webhost.com;;dbname=a1071350_test';
+$db['test']['hostname'] = 'mysql:host=mysql1.000webhost.com;dbname=a1071350_test';
 $db['test']['username'] = 'a1071350_robert';
-$db['test']['password'] = '2ujijjgl';
+$db['test']['password'] = 'bluecloud25';
 $db['test']['database'] = 'a1071350_test';
 $db['test']['dbdriver'] = 'PDO';
 $db['test']['dbprefix'] = '';

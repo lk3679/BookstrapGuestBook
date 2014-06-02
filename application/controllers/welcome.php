@@ -11,6 +11,7 @@ class Welcome extends CI_Controller {
         header("Content-type:text/html;charset=utf-8");
         $this->load->library('session');
         $this->load->helper('url');
+        $this->load->helper('cookie');
     }
 
     /**
@@ -37,7 +38,11 @@ class Welcome extends CI_Controller {
 
         //echo $this->session->userdata('Name')." 歡迎光臨，你好啊!";
         //var_dump($this->session->all_userdata());
+         $this->load->Model('guestbook');
+        $GB = new guestbook();
+        $query = $GB->GetGuestBook();
         $data["Site_Num"] = 2;
+        $data["guestbook"] = $query;
         $this->load->view('guestbook', $data);
     }
 
@@ -73,6 +78,30 @@ class Welcome extends CI_Controller {
         $this->session->set_userdata('Name', $userName);
         //var_dump($this->session->all_userdata());
         //redirect("index.php/welcome/test");
+    }
+    
+    function sign(){
+        $data["Site_Num"] = 3;
+        set_cookie("web", "dickgou.net63", time()+3600);
+        //$this->session->set_userdata('uid', 'robert');
+        $this->load->view('sign', $data);
+    }
+    
+    function signUser(){
+        $user = $_POST["user"];
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $this->load->Model('member');
+        $member = new member();
+        $data = array(
+            "user" => $user,
+            "email" => $email,
+            "password"=>$password ,
+            "createdate" => date("Y-m-d H:i:s")
+        );
+        //param1放table名稱，後面放新增欄位之陣列
+        $member->AddNew('user',$data);
+        
     }
 
 }

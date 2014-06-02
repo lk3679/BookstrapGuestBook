@@ -3,7 +3,7 @@
 class guestbook extends CI_Model{
 
     function GetGuestBook() {
-        $query = $this->db->query("SELECT * FROM guestbook")->result();
+        $query = $this->db->query("SELECT * FROM guestbook order by createdate DESC")->result();
         return $query;
     }
     

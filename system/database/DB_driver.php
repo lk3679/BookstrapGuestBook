@@ -424,8 +424,15 @@ class CI_DB_driver {
 
 		if ( ! class_exists($driver))
 		{
-			include_once(BASEPATH.'database/DB_result.php');
-			include_once(BASEPATH.'database/drivers/'.$this->dbdriver.'/'.$this->dbdriver.'_result.php');
+                    include_once(BASEPATH.'database/DB_result.php');
+                    
+                    if(strrpos(BASEPATH,'home')==false){
+                        include_once(BASEPATH.'database/drivers/'.$this->dbdriver.'/'.$this->dbdriver.'_result.php');
+                    }else{
+                        include_once('/home/a1071350/public_html/chat/system/database/drivers/pdo/pdo_result.php');
+                    }
+//			include_once(BASEPATH.'database/DB_result.php');
+//			include_once(BASEPATH.'database/drivers/'.$this->dbdriver.'/'.$this->dbdriver.'_result.php');
 		}
 
 		return $driver;
