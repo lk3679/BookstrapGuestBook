@@ -11,11 +11,87 @@
     <script type="text/javascript">
 
         $().ready(function() {
+            $("#dialog-message").dialog({
+                autoOpen: false,
+                modal: true,
+                buttons: {
+                    Ok: function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
             $("#sign").click(function() {
-                window.location.href="sign";
+                window.location.href = "sign";
+            });
+
+            $("#login").click(function() {
+                var email = $("#inputEmail").val();
+                var password = $("#inputPassword").val();
+
+                if ($("#inputEmail").val() === "") {
+                    $("#msg").html("信箱不可為空");
+                    $('#dialog-message').dialog('open');
+                } else if ($("#inputPassword").val() === "") {
+                    $("#msg").html("密碼不可為空");
+                    $('#dialog-message').dialog('open');
+                } else {
+                    send(email, password);
+                }
+
+            });
+
+            $("#inputEmail").change(function() {
+                //alert("Handler for .change() called.");
+                var email = $("#inputEmail").val();
+                if (validateEmail(email) === true) {
+                    $(this).css("border", "1px solid #666666")
+                } else {
+                    $("#msg").html("信箱格式錯誤");
+                    $('#dialog-message').dialog('open');
+                    $(this).css("border", "1px solid red");
+                }
+
             });
 
         });
+
+
+        function send(email, password) {
+            $.ajax({
+                url: "../welcome/loginStatus",
+                data: {email: email, password: password},
+                type: 'POST',
+                dataType: "json", async: true,
+                success: function(data) {
+                    if (data === true) {
+//                        $("#msg").html("登入成功!");
+//                        $('#dialog-message').dialog('open');
+                        window.location.href="../chat/chatroom";
+
+                    } else {
+                        $("#msg").html("登入失敗!");
+                        $('#dialog-message').dialog('open');
+
+                    }
+                },
+                error: function(xhr) {
+                    alert("Error!!");
+                }
+            });
+        }
+
+
+
+        function validateEmail(email) {
+            var emailReg = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+            var valid = emailReg.test(email);
+            if (!valid) {
+                return false;
+            } else {
+                return true;
+            }
+        }
 
     </script>
 </head>
@@ -43,7 +119,7 @@
                         <label class="checkbox">
                             <input type="checkbox"> 記住我
                         </label>
-                        <button type="submit" class="btn btn-primary ">登入</button>
+                        <input type="button" id="login"  class="btn btn-primary " value="登入">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="button" id="sign" class="btn btn-primary " value="註冊">
                     </div>
@@ -56,7 +132,7 @@
     <div id="dialog-message" title="通知" style="display:none">
         <p>
             <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
-            
+            <span id="msg"></span>
         </p>
 
     </div>

@@ -14,21 +14,6 @@ class Welcome extends CI_Controller {
         $this->load->helper('cookie');
     }
 
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     * 	- or -  
-     * 		http://example.com/index.php/welcome/index
-     * 	- or -
-     * Since this controller is set as the default controller in 
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see http://codeigniter.com/user_guide/general/urls.html
-     */
     public function index() {
         $data["Site_Num"] = 1;
         $this->load->view('welcome_message', $data);
@@ -38,7 +23,7 @@ class Welcome extends CI_Controller {
 
         //echo $this->session->userdata('Name')." 歡迎光臨，你好啊!";
         //var_dump($this->session->all_userdata());
-         $this->load->Model('guestbook');
+        $this->load->Model('guestbook');
         $GB = new guestbook();
         $query = $GB->GetGuestBook();
         $data["Site_Num"] = 2;
@@ -64,44 +49,61 @@ class Welcome extends CI_Controller {
             "createdate" => date("Y-m-d H:i:s")
         );
         //param1放table名稱，後面放新增欄位之陣列
-        $GB->AddNew('guestbook',$data);
+        $GB->AddNew('guestbook', $data);
     }
 
-    public function login($userName = '') {
-        $this->load->library('Book');
-        $bk = new Book();
-        $bk->buyBook(8);
-        $data["num"] = $bk->buyNum;
-        $data["name"] = $userName;
-        $data["Site_Num"] = 3;
-        $this->load->view('login', $data);
-        $this->session->set_userdata('Name', $userName);
+    public function login() {
+        $session = $this->session->all_userdata();
+        if (!isset($session["user"])) {
+            $data["Site_Num"] = 3;
+            $this->load->view('login', $data);
+        } else {
+            header("location:../chat/chatroom");
+        }
         //var_dump($this->session->all_userdata());
         //redirect("index.php/welcome/test");
     }
-    
-    function sign(){
+
+    function loginStatus() {
+        $mail = $_POST["email"];
+        $password = md5($_POST["password"]);
+        //$this->session->sess_destroy();
+        $this->load->Model('member');
+        $MB = new member();
+        //Base::Test($MB->checkIDandPass($mail, $password));
+        $userData = $MB->checkIDandPass($mail, $password);
+        $result = count($userData) > 0 ? TRUE : FALSE;
+        if ($result) {
+            $this->session->set_userdata("user", $userData);
+            //寫入登入的相關資訊到cookie和session    
+        }
+        echo json_encode($result);
+    }
+
+    function sign() {
         $data["Site_Num"] = 3;
-        set_cookie("web", "dickgou.net63", time()+3600);
+        set_cookie("web", "dickgou.net63", time() + 3600);
         //$this->session->set_userdata('uid', 'robert');
         $this->load->view('sign', $data);
     }
-    
-    function signUser(){
+
+    function signUser() {
         $user = $_POST["user"];
         $email = $_POST["email"];
         $password = $_POST["password"];
+        $sex = $_POST["sex"];
+        
         $this->load->Model('member');
         $member = new member();
         $data = array(
             "user" => $user,
             "email" => $email,
-            "password"=>$password ,
-            "createdate" => date("Y-m-d H:i:s")
+            "password" => md5($password),
+            "createdate" => date("Y-m-d H:i:s"),
+            "sex"=>$sex
         );
         //param1放table名稱，後面放新增欄位之陣列
-        $member->AddNew('user',$data);
-        
+        $member->AddNew('user', $data);
     }
 
 }

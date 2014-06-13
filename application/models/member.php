@@ -13,6 +13,11 @@ class member extends CI_Model{
         return $query;
     }
     
+    function checkIDandPass($mail,$password){
+        $query = $this->db->query("SELECT * FROM user where email=? and password=? ",array($mail,$password))->result();
+        return $query;
+    }
+    
     function AddNew($TableNmae,$data){
 //        $str = $this->db->insert_string('test',$data);
 //        Base::Test($str);

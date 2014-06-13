@@ -15,9 +15,13 @@
         h1 {		color: #444;		background-color: transparent;		border-bottom: 1px solid #D0D0D0;		font-size: 19px;		font-weight: normal;		margin: 0 0 14px 0;		padding: 14px 15px 10px 15px;	}	code {		font-family: Consolas, Monaco, Courier New, Courier, monospace;		font-size: 12px;		background-color: #f9f9f9;		border: 1px solid #D0D0D0;		color: #002166;		display: block;		margin: 14px 0 14px 0;		padding: 12px 10px 12px 10px;	}	#body{		margin: 0 15px 0 15px;	}		p.footer{		text-align: right;		font-size: 11px;		border-top: 1px solid #D0D0D0;		line-height: 32px;		padding: 0 10px 0 10px;		margin: 20px 0 0 0;	}		#container{		margin: 10px;		border: 1px solid #D0D0D0;		-webkit-box-shadow: 0 0 8px #D0D0D0;	}	
     </style>
     <script type="text/javascript">
-       
+
         $().ready(function() {
-            $("#bookContent").slideToggle(1000);
+//            $("#bookContent").slideToggle(1000);
+            var timeDelay=1000;
+            $("#bookContent").children("table").each(function(){
+                $(this).fadeIn(timeDelay);
+            });
 
             $("#dialog-message").dialog({
                 autoOpen: false,
@@ -49,14 +53,14 @@
             //陣列反轉，新的在前
             //data.reverse();
             var div = '';
-                div += '<table width="100%" border="1" class="table table-bordered table-condensed">';
-                div += '<tr><td id="color"><strong>' + data[0].user;
-                div += '</strong></td><td style="text-align:right;color: #942a25">時間：' + data[0].createdate + '</td></tr>';
-                div += '<tr><td colspan="2" style="height: 50px"><p style="font-family:Microsoft JhengHei"><big>' + data[0].content + '</big></p></td></tr> ';
-                div += '</table>';
-            var old=$("#bookContent").html();
-            $("#bookContent").html(div+old);
-         
+            div += '<table width="100%" border="1" class="table table-bordered table-condensed">';
+            div += '<tr><td id="color"><strong>' + data[0].user;
+            div += '</strong></td><td style="text-align:right;color: #942a25">時間：' + data[0].createdate + '</td></tr>';
+            div += '<tr><td colspan="2" style="height: 50px"><p style="font-family:Microsoft JhengHei"><big>' + data[0].content + '</big></p></td></tr> ';
+            div += '</table>';
+            var old = $("#bookContent").html();
+            $("#bookContent").html(div + old);
+
         }
 
         // Modal Link
@@ -121,20 +125,20 @@
             </label></td>
     </tr>
 </table>
-<div id="bookContent" style="display:none">
+<div id="bookContent">
     <?php
     foreach ($guestbook as $row) {
         ?>
-        <table width="100%" border="1" class="table table-bordered table-condensed">
+        <table width="100%" border="1" class="table table-bordered table-condensed" style="display:none">
             <tr><td id="color"><strong><?php echo $row->user; ?></strong></td>
                 <td style="text-align:right;color: #942a25">時間：<?php echo $row->createdate; ?></td></tr>
             <tr><td colspan="2" style="height: 50px"><p style="font-family:Microsoft JhengHei"><big><?php echo $row->content; ?></big></p>
-        </td></tr>
+            </td></tr>
         </table>
-    
-<?php } ?>
-    
-    </div>
+
+    <?php } ?>
+
+</div>
 <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
 </div>
 
