@@ -11,7 +11,8 @@
     </style>
     <script type="text/javascript">
         var usernemae = '<?= $user ?>';
-
+        var sex='<?= $sex ?>';
+        
         $(function() {
             //postData("剛剛進入聊天室，大家來跟我聊天喔!");
             getMsg();
@@ -35,9 +36,15 @@
         function setMsg(data) {
             //data.reverse();
             var div = "";
-            console.log(data)
+            //console.log(data);
             $.each(data, function(key, value) {
-                content = value.name + "對[" + value.who + "]說:" + value.speech + "  時間：" + value.time + "<br/>";
+                console.log(value.sex);
+                if (value.sex === "male")
+                    username = "<span style='color:blue'>" + value.name + "</span>";
+                else
+                    username = "<span style='color:#FF60AF'>" + value.name + "</span>";
+
+                content = username + "對[" + value.who + "]說:" + value.speech + "  時間：" + value.time + "<br/>";
                 div += content;
             });
 
@@ -48,13 +55,13 @@
             content = $("#content").val();
             postData(content);
         }
-        
-        function logout(){
-            window.location.href="../chat/logout";
+
+        function logout() {
+            window.location.href = "../chat/logout";
         }
 
         function postData(speech) {
-            var jqxhr = $.post("../chat/Write", {name: usernemae, color: 3, who: "所有人", speech: speech}, function() {
+            var jqxhr = $.post("../chat/Write", {name: usernemae, color: 3, who: "所有人", speech: speech,sex:sex}, function() {
             })
                     .done(function() {
                         console.log("success!");
@@ -72,9 +79,9 @@
     </script>
 </head>
 <body>
-    <div id="record" style="height:400px;width: 100%"></div>
+    <div id="record" style="height:400px;width: 100%;overflow:auto;"></div>
     <div style="margin-left: 20%;width: 60%;margin-bottom: 5%;position: fixed">	
-         <div>暱稱：<?= $user ?>　　　性別：<?= $sex=="male"?"男":"女" ?></div>
+        <div>暱稱：<?= $user ?>　　　性別：<?= $sex == "male" ? "男" : "女" ?></div>
         <div><textarea name="content" id="content" rows="8" class="span10" style="width:90%"></textarea></div>
         <input type="button"  class="btn"  value="送出" onclick="submit();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="button" class="btn btn-danger" value="登出" onclick="logout();">

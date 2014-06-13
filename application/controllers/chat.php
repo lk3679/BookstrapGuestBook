@@ -38,6 +38,7 @@ class chat extends CI_Controller {
         $color = $_POST["color"];
         $who = $_POST["who"];
         $speech = $_POST["speech"];
+        $sex=$_POST["sex"];
 
         $chatroom = new ChatRoom();
         $chatroom->UpdateChatRoom($name, $color, $who, $speech);
