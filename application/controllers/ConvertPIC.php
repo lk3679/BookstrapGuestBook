@@ -28,7 +28,7 @@ class ConvertPIC extends CI_Controller {
         $file=$_POST["file"];
 //        Base::Test(empty($file));
         if(empty($file)){
-           $file = "http://claire-chang.com/wp-content/uploads/2011/11/DSW-3009.jpg";
+           $file = "http://www3.365shu.com/images3/wall/20060609/worldcup020.jpg";
         }
         
         $quality = 100;
