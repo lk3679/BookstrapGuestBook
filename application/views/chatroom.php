@@ -28,7 +28,7 @@
                     setMsg(data);
                 },
                 error: function(xhr) {
-                    alert("Error!!");
+                    console.log("Error!!");
                 }
             });
         }
@@ -64,11 +64,11 @@
             var jqxhr = $.post("../chat/Write", {name: usernemae, color: 3, who: "所有人", speech: speech,sex:sex}, function() {
             })
                     .done(function() {
-                        console.log("success!");
+                        //console.log("success!");
                         $("#content").val('');
                     })
                     .fail(function() {
-                        console.log("faile!");
+                        //console.log("faile!");
                     });
         }
 

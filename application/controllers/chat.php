@@ -41,7 +41,7 @@ class chat extends CI_Controller {
         $sex=$_POST["sex"];
 
         $chatroom = new ChatRoom();
-        $chatroom->UpdateChatRoom($name, $color, $who, $speech);
+        $chatroom->UpdateChatRoom($name, $color, $who, $speech,$sex);
     }
     
     function logout(){
