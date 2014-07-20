@@ -53,9 +53,21 @@ class Welcome extends CI_Controller {
     }
 
     public function login() {
+        //先判斷session的登入狀態
         $session = $this->session->all_userdata();
+
         if (!isset($session["user"])) {
             $data["Site_Num"] = 3;
+            //再判斷cookie的紀錄，如果不為空，填入到input text
+            //Base::Test($_COOKIE);
+            //Base::Test($_COOKIE["mail"]);
+            if(isset($_COOKIE["mail"])&&isset($_COOKIE["password"])){
+                $data["mail"]=$_COOKIE["mail"];
+                $data["password"]=$_COOKIE["password"];
+            }else{
+                $data["mail"]="";
+                $data["password"]="";
+            }
             $this->load->view('login', $data);
         } else {
             header("location:../chat/chatroom");
@@ -67,22 +79,28 @@ class Welcome extends CI_Controller {
     function loginStatus() {
         $mail = $_POST["email"];
         $password = md5($_POST["password"]);
-        //$this->session->sess_destroy();
+        $remember = $_POST["remember"];
+        
         $this->load->Model('member');
         $MB = new member();
         //Base::Test($MB->checkIDandPass($mail, $password));
         $userData = $MB->checkIDandPass($mail, $password);
         $result = count($userData) > 0 ? TRUE : FALSE;
         if ($result) {
+            //寫入登入的相關資訊到session
             $this->session->set_userdata("user", $userData);
-            //寫入登入的相關資訊到cookie和session    
+            if ($remember == "true") {
+                //紀錄到cookie
+                setcookie("mail",$mail, time()+3600*240);
+                setcookie("password",$_POST["password"], time()+3600*240);
+            }
         }
         echo json_encode($result);
     }
 
     function sign() {
         $data["Site_Num"] = 3;
-        set_cookie("web", "dickgou.net63", time() + 3600);
+        //set_cookie("web", "dickgou.net63", time() + 3600);
         //$this->session->set_userdata('uid', 'robert');
         $this->load->view('sign', $data);
     }
@@ -92,7 +110,7 @@ class Welcome extends CI_Controller {
         $email = $_POST["email"];
         $password = $_POST["password"];
         $sex = $_POST["sex"];
-        
+
         $this->load->Model('member');
         $member = new member();
         $data = array(
@@ -100,7 +118,7 @@ class Welcome extends CI_Controller {
             "email" => $email,
             "password" => md5($password),
             "createdate" => date("Y-m-d H:i:s"),
-            "sex"=>$sex
+            "sex" => $sex
         );
         //param1放table名稱，後面放新增欄位之陣列
         $member->AddNew('user', $data);

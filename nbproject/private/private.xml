@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/AppServ/www/chat/application/views/guestbook.php</file>
             <file>file:/C:/AppServ/www/chat/application/views/welcome_message.php</file>
-            <file>file:/C:/AppServ/www/chat/application/controllers/chat.php</file>
+            <file>file:/C:/AppServ/www/chat/application/views/header.php</file>
             <file>file:/C:/AppServ/www/chat/application/controllers/ConvertPIC.php</file>
-            <file>file:/C:/AppServ/www/chat/application/views/chatroom.php</file>
             <file>file:/C:/AppServ/www/chat/application/models/member.php</file>
+            <file>file:/C:/AppServ/www/chat/application/views/login.php</file>
+            <file>file:/C:/AppServ/www/chat/application/views/convert.php</file>
         </group>
     </open-files>
 </project-private>

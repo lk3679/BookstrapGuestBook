@@ -22,7 +22,10 @@ class chat extends CI_Controller {
     function chatroom() {
         $session=$this->session->all_userdata();
         $data=$session["user"][0];
-        //Base::Test($data->user);
+        //Base::Test($data);
+        $this->load->library("Chat");
+        $chatroom = new ChatRoom();
+        $chatroom->UpdateMemberList($data->uid,$data->user, $data->sex, 1);
         $this->load->view("chatroom",$data);
     }
 
@@ -30,6 +33,12 @@ class chat extends CI_Controller {
         $this->load->library("Chat");
         $chatroom = new ChatRoom();
         $chatroom->ReadChatroomContent();
+    }
+    
+    function ReadList() {
+        $this->load->library("Chat");
+        $chatroom = new ChatRoom();
+        $chatroom->ReadMemberList();
     }
 
     function Write() {
@@ -45,6 +54,11 @@ class chat extends CI_Controller {
     }
     
     function logout(){
+        $this->load->library("Chat");
+        $session=$this->session->all_userdata();
+        $data=$session["user"][0];
+        $chatroom = new ChatRoom();
+        $chatroom->UpdateMemberList($data->uid,$data->user, $data->sex, -1);
         $this->session->sess_destroy();
         header("location:../welcome/login");
     }

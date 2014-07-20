@@ -45,11 +45,11 @@
                 //alert("Handler for .change() called.");
                 var email = $("#inputEmail").val();
                 if (validateEmail(email) === true) {
-                    $(this).css("border", "1px solid #666666")
+                    $(this).css("border-color", "");
                 } else {
                     $("#msg").html("信箱格式錯誤");
                     $('#dialog-message').dialog('open');
-                    $(this).css("border", "1px solid red");
+                    $(this).css("border-color", "red");
                 }
 
             });
@@ -58,9 +58,11 @@
 
 
         function send(email, password) {
+            var check=$("#remember").prop("checked");
+            //alert(check);return false;
             $.ajax({
                 url: "../welcome/loginStatus",
-                data: {email: email, password: password},
+                data: {email: email, password: password,remember:check},
                 type: 'POST',
                 dataType: "json", async: true,
                 success: function(data) {
@@ -105,19 +107,19 @@
                 <div class="control-group">
                     <label class="control-label" for="inputEmail">Email</label>
                     <div class="controls">
-                        <input type="text" id="inputEmail" placeholder="Email">
+                        <input type="text" id="inputEmail" placeholder="Email" value="<?php echo $mail; ?>">
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="inputPassword">密碼</label>
                     <div class="controls">
-                        <input type="password" id="inputPassword" placeholder="密碼">
+                        <input type="password" id="inputPassword" placeholder="密碼" value="<?php echo $password; ?>">
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="controls">
                         <label class="checkbox">
-                            <input type="checkbox"> 記住我
+                            <input id="remember" type="checkbox"> 記住我
                         </label>
                         <input type="button" id="login"  class="btn btn-primary " value="登入">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

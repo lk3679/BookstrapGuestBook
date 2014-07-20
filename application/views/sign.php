@@ -42,12 +42,12 @@
                 //alert("Handler for .change() called.");
                 var email = $("#inputEmail").val();
                 if (validateEmail(email) === true) {
-                    $(this).css("border", "1px solid #666666")
+                    $(this).css("border-color", "")
                     MailFormat = true;
                 } else {
                     $("#msg").html("信箱格式錯誤");
                     $('#dialog-message').dialog('open');
-                    $(this).css("border", "1px solid red");
+                    $(this).css("border-color", "red");
                 }
 
             });
@@ -72,11 +72,11 @@
                 email = $("#inputEmail").val();
                 password = $("#inputPassword").val();
                 user = $("#inputNickName").val();
-                if (MailFormat === false) {
-                    $("#msg").html("信箱格式錯誤")
-                    $('#dialog-message').dialog('open');
-                } else if ($("#inputEmail").val() === "") {
+                if (email.length<1) {
                     $("#msg").html("信箱不可為空");
+                    $('#dialog-message').dialog('open');
+                } else if (MailFormat === false) {
+                    $("#msg").html("信箱格式錯誤");
                     $('#dialog-message').dialog('open');
                 } else if ($("#inputPassword").val() === "" || $("#inputPasswordCheck").val() === "") {
                     $("#msg").html("密碼不可為空");
@@ -191,7 +191,8 @@
                 </div>
                 <div class="control-group">
                     <div class="controls">
-                        <input type="button" id="send" class="btn btn-primary " value="送出">
+                        <input type="button" id="send" class="btn btn-primary " value="送出">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="button" class="btn btn-primary " value="返回" onclick="javascript:history.back();">
                     </div>
                 </div>
 
